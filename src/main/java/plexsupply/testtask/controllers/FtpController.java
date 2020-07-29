@@ -1,5 +1,6 @@
 package plexsupply.testtask.controllers;
 
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.apache.commons.csv.CSVRecord;
@@ -18,7 +19,11 @@ public class FtpController {
     private final CsvParser csvParser;
 
     @GetMapping
-    public boolean checkFilesFromStorage(FtpData notification) {
+    @ApiOperation(value = "Enter folder with files where they contains like '/folder/ or root '/'" +
+            " and file names like file.csv. Endpoint give boolean that all files are saved to another server" +
+            " or not",
+            response = boolean.class)
+    public boolean checkFilesFromStorageAndSaveToMainServer(FtpData notification) {
         boolean fileDownloaded =
                 ftpManager.getFileFromFtpServerAndCheck(notification.getFolderName(),
                         notification.getFileNames());
