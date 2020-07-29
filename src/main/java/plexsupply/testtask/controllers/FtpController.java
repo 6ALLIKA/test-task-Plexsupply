@@ -19,9 +19,9 @@ public class FtpController {
     private final CsvParser csvParser;
 
     @GetMapping
-    @ApiOperation(value = "Enter folder with files where they contains like '/folder/ or root '/'" +
-            " and file names like file.csv. Endpoint give boolean that all files are saved to another server" +
-            " or not",
+    @ApiOperation(value = "Enter folder with files where they contains like '/folder/ or root '/'"
+            + " and file names like file.csv. Endpoint give boolean that all files "
+            + "are saved to another server or not",
             response = boolean.class)
     public boolean checkFilesFromStorageAndSaveToMainServer(FtpData notification) {
         boolean fileDownloaded =
