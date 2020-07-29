@@ -49,7 +49,6 @@ public class FtpClient {
             throw new FtpExeption("Exception in connecting to FTP Server", e);
         }
 
-
         try {
             ftp.login(user, password);
             log.info("Successful authentication to server.");
@@ -68,7 +67,7 @@ public class FtpClient {
 
     public boolean findFileAtServerAndCopy(String folderPath, String... fileNames) {
         ftp.enterLocalPassiveMode();
-        FTPFile[] ftpFiles = null;
+        FTPFile[] ftpFiles;
         boolean ftpFilesExist = false;
         try {
             ftp.setFileType(FTP.BINARY_FILE_TYPE);
@@ -94,7 +93,7 @@ public class FtpClient {
     public boolean uploadFileToFtpServer(String folderPath, String... fileNames) {
         boolean allFlesUploaded = false;
         for (String fileName : fileNames) {
-            FileInputStream fileInputStream = null;
+            FileInputStream fileInputStream;
             File downloadedFile = new File(TMP_PATH_FOLDER + fileName);
             try {
                 fileInputStream = new FileInputStream(downloadedFile);
@@ -121,10 +120,11 @@ public class FtpClient {
         for (String fileName : fileNames) {
             File downloadedFile = new File(TMP_PATH_FOLDER + fileName);
             try {
-                OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadedFile));
+                OutputStream outputStream =
+                        new BufferedOutputStream(new FileOutputStream(downloadedFile));
                 InputStream inputStream = ftp.retrieveFileStream(folderPath + fileName);
                 byte[] bytesArray = new byte[4096];
-                int bytesRead = -1;
+                int bytesRead;
                 while ((bytesRead = inputStream.read(bytesArray)) != -1) {
                     outputStream.write(bytesArray, 0, bytesRead);
                 }

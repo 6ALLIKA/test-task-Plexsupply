@@ -18,16 +18,18 @@ public class FtpController {
     private final CsvParser csvParser;
 
     @GetMapping
-    public boolean checkFilesFromStorage(FtpData notification){
+    public boolean checkFilesFromStorage(FtpData notification) {
         boolean fileDownloaded =
-                ftpManager.getFileFromFtpServerAndCheck(notification.getFolderName(), notification.getFileNames());
+                ftpManager.getFileFromFtpServerAndCheck(notification.getFolderName(),
+                        notification.getFileNames());
         for (String fileName : notification.getFileNames()) {
             List<CSVRecord> csvRecords = csvParser.parseCsvFile(fileName);
             csvParser.printCsv(csvRecords);
         }
 
         if (fileDownloaded) {
-            return ftpManager.uploadCheckedFileToStpServer(notification.getFolderName(), notification.getFileNames());
+            return ftpManager.uploadCheckedFileToStpServer(notification.getFolderName(),
+                    notification.getFileNames());
         } else {
             return false;
         }

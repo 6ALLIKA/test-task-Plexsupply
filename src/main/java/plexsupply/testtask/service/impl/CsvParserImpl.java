@@ -27,9 +27,12 @@ public class CsvParserImpl implements CsvParser {
     public List<CSVRecord> parseCsvFile(String fileName) {
         List<CSVRecord> records = null;
         try (InputStream inputStream = new FileInputStream(TMP_PATH_FOLDER + fileName);
-             BufferedReader fileReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-             CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
+                BufferedReader fileReader =
+                         new BufferedReader(new InputStreamReader(inputStream,
+                                 StandardCharsets.UTF_8));
+                CSVParser csvParser = new CSVParser(fileReader,
+                         CSVFormat.DEFAULT.withFirstRecordAsHeader()
+                                 .withIgnoreHeaderCase().withTrim())) {
             records = csvParser.getRecords();
         } catch (FileNotFoundException e) {
             log.error("File in application not found.");
